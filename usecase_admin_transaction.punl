@@ -1,0 +1,11 @@
+@startuml
+actor "Admin" as Admin
+
+usecase "Xem giao dịch" as UC_ViewTransactions
+usecase "Xử lý khiếu nại" as UC_HandleComplaints
+usecase "Quản lý doanh thu" as UC_ManageRevenue
+
+Admin --> UC_ViewTransactions
+UC_ViewTransactions .> UC_HandleComplaints : Nếu có khiếu nại
+Admin --> UC_ManageRevenue
+@enduml

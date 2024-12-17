@@ -1,0 +1,44 @@
+@startuml
+left to right direction
+
+actor "Người dùng" as User
+actor "Admin" as Admin
+
+rectangle "Hệ Thống" {
+    usecase "Đăng ký/Đăng nhập" as UC_Login
+    usecase "Xác thực người bán" as UC_VerifySeller
+    usecase "Gửi hồ sơ xác thực" as UC_SubmitVerification
+    usecase "Phê duyệt hồ sơ người bán" as UC_ApproveSeller
+
+    usecase "Đăng sản phẩm" as UC_UploadProduct
+    usecase "Quản lý sản phẩm" as UC_ManageProduct
+
+    usecase "Tìm kiếm và mua sản phẩm" as UC_BuyProduct
+    usecase "Thanh toán" as UC_Payment
+    usecase "Tải xuống sản phẩm" as UC_DownloadProduct
+    usecase "Đánh giá sản phẩm" as UC_ReviewProduct
+
+    usecase "Phê duyệt sản phẩm" as UC_ApproveProduct
+    usecase "Xử lý khiếu nại" as UC_HandleComplaints
+    usecase "Quản lý giao dịch" as UC_ManageTransactions
+}
+
+User --> UC_Login
+User --> UC_SubmitVerification : <<extend>>
+UC_SubmitVerification --> UC_VerifySeller
+
+Admin --> UC_ApproveSeller : <<include>>
+UC_VerifySeller --> UC_ApproveSeller
+
+User --> UC_BuyProduct
+UC_BuyProduct --> UC_Payment
+UC_Payment --> UC_DownloadProduct
+User --> UC_ReviewProduct
+
+User --> UC_UploadProduct : <<extend>>
+User --> UC_ManageProduct
+
+Admin --> UC_ApproveProduct
+Admin --> UC_HandleComplaints
+Admin --> UC_ManageTransactions
+@enduml

@@ -1,0 +1,14 @@
+@startuml
+actor "Người bán" as Seller
+actor "Admin" as Admin
+
+usecase "Đăng sản phẩm" as UC_UploadProduct
+usecase "Phê duyệt sản phẩm" as UC_ApproveProduct
+usecase "Thông báo kết quả" as UC_NotifyResult
+
+Seller --> UC_UploadProduct
+UC_UploadProduct --> UC_ApproveProduct : Gửi yêu cầu
+Admin --> UC_ApproveProduct
+UC_ApproveProduct .> UC_NotifyResult : <<include>>
+Seller <-- UC_NotifyResult
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+actor "Người dùng" as User
+actor "Admin" as Admin
+actor "Dịch vụ xác thực" as ThirdParty
+
+rectangle "Hệ Thống" {
+    usecase "Gửi hồ sơ đăng ký Seller" as UC_SubmitApplication
+    usecase "Gửi xác thực hồ sơ" as UC_SendVerification
+    usecase "Nhận kết quả xác thực" as UC_GetVerificationResult
+    usecase "Phê duyệt hồ sơ" as UC_ApproveApplication
+    usecase "Từ chối hồ sơ" as UC_RejectApplication
+    usecase "Gửi thông báo kết quả" as UC_SendResult
+}
+
+User --> UC_SubmitApplication
+UC_SubmitApplication --> UC_SendVerification : Gửi hồ sơ
+UC_SendVerification --> ThirdParty : Gửi đến dịch vụ
+ThirdParty --> UC_GetVerificationResult : Kết quả xác thực
+
+Admin --> UC_GetVerificationResult : Xem kết quả
+UC_GetVerificationResult --> UC_ApproveApplication : Nếu hợp lệ
+UC_GetVerificationResult --> UC_RejectApplication : Nếu không hợp lệ
+
+UC_ApproveApplication --> UC_SendResult : Thông báo kết quả
+UC_RejectApplication --> UC_SendResult : Thông báo từ chối
+UC_SendResult --> User : Gửi kết quả
+@enduml

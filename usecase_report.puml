@@ -1,0 +1,14 @@
+@startuml
+actor "Người mua/Người bán" as User
+actor "Admin" as Admin
+
+usecase "Gửi khiếu nại" as UC_SubmitComplaint
+usecase "Xử lý khiếu nại" as UC_HandleComplaint
+usecase "Thông báo kết quả" as UC_NotifyOutcome
+
+User --> UC_SubmitComplaint
+UC_SubmitComplaint --> Admin
+Admin --> UC_HandleComplaint
+UC_HandleComplaint .> UC_NotifyOutcome : <<include>>
+User <-- UC_NotifyOutcome
+@enduml

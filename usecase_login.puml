@@ -1,0 +1,11 @@
+@startuml
+actor "Người dùng" as User
+usecase "Đăng ký/Đăng nhập" as UC_Login
+usecase "Xác thực email" as UC_EmailVerification
+usecase "Đăng nhập qua OAuth" as UC_OAuthLogin
+
+User --> UC_Login
+UC_Login .> UC_EmailVerification : <<include>>
+UC_Login <. UC_OAuthLogin : <<extend>>
+
+@enduml

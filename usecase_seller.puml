@@ -1,0 +1,20 @@
+@startuml
+actor "Người dùng" as User
+actor "Admin" as Admin
+rectangle "Hệ Thống" {
+    usecase "Gửi hồ sơ đăng ký Seller" as UC_SubmitSellerApplication
+    usecase "Xác thực CCCD" as UC_VerifyCCCD
+    usecase "Xác thực khuôn mặt" as UC_VerifyFace
+    usecase "Phê duyệt hồ sơ" as UC_ApproveApplication
+    usecase "Gửi thông báo kết quả" as UC_SendResult
+}
+
+User --> UC_SubmitSellerApplication
+UC_SubmitSellerApplication --> UC_VerifyCCCD : Gửi thông tin CCCD
+UC_VerifyCCCD --> UC_VerifyFace : Xác thực khuôn mặt
+
+UC_VerifyFace --> UC_ApproveApplication : Gửi hồ sơ
+Admin --> UC_ApproveApplication : Phê duyệt hồ sơ
+UC_ApproveApplication --> UC_SendResult : Kết quả xử lý
+UC_SendResult --> User : Thông báo kết quả
+@enduml
